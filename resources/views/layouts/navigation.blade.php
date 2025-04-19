@@ -3,49 +3,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
-                
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <!--Admin Links -->
-                    @role('admin')
-                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')" class="nav-item flex items-center">
-                        <i class='bx bx-user-circle text-lg me-1 icon-colored'></i> {{ __('Admin') }}
-                    </x-nav-link>
-                    @endrole
+              <!-- Logo and System Name -->
+<div class="shrink-0 flex items-center">
+    <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
+        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+        <span class="text-xl font-bold text-[#FE6700]">MtotoClinic</span>
+    </a>
+</div>
 
-                    <!-- Doctor Links -->
-                    @role('doctor')
-                    <x-nav-link :href="route('doctor.index')" :active="request()->routeIs('doctor.index')" class="nav-item flex items-center">
-                        <i class='bx bx-plus-medical text-lg me-1 icon-colored'></i> {{ __('Doctor') }}
-                    </x-nav-link>
-                    @endrole
-
-                    @role('children')
-                    <x-nav-link :href="route('children.index')" :active="request()->routeIs('children.index')" class="nav-item flex items-center">
-                        <i class='bx bx-child text-lg me-1 icon-colored'></i> {{ __('Children') }}
-                    </x-nav-link>
-                    @endrole
-
-                    @role('pregnant-woman')
-                    <x-nav-link :href="route('pregnant.index')" :active="request()->routeIs('pregnant.index')" class="nav-item flex items-center">
-                        <i class='bx bx-female text-lg me-1 icon-colored'></i> {{ __('Pregnant') }}
-                    </x-nav-link>
-                    @endrole
-
-                    @role('breastfeeding-woman')
-                    <x-nav-link :href="route('breastfeeding.index')" :active="request()->routeIs('breastfeeding.index')" class="nav-item flex items-center">
-                        <i class='bx bx-baby-carriage text-lg me-1 icon-colored'></i> {{ __('Breastfeeding') }}
-                    </x-nav-link>
-                    @endrole
-                </div>
             </div>
-
+            <div class="flex items-center text-orange-500 font-semibold text-lg">
+                <p class="user-name-decor">Welcome: {{ Auth::user()->name }}</p>
+            </div>
+            
+            
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
