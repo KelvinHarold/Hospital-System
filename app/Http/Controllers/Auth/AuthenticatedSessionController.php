@@ -41,13 +41,13 @@ class AuthenticatedSessionController extends Controller
 
         switch ($role) {
             case 'admin':
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.index');
             case 'pregnant-woman':
-                return redirect()->route('pregnant.dashboard');
+                return redirect()->route('pregnant.index');
             case 'doctor':
-                return redirect()->route('doctor.dashboard');
+                return redirect()->route('doctor.index');
             case 'breastfeeding-woman':
-                return redirect()->route('breastfeeding.dashboard');
+                return redirect()->route('breastfeeding.index');
             default:
                 return redirect('/login'); // fallback
         }
