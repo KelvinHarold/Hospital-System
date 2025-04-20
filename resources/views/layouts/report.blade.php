@@ -46,7 +46,7 @@
             <div class="flex-col w-full md:flex md:flex-row md:min-h-screen">
                 <div @click.away="open = false" class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-64 dark-mode:text-gray-200 dark-mode:bg-gray-800" x-data="{ open: false }">
                     <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
-                        <a href="#" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Admin</a>
+                        <a href="#" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Reports</a>
                         <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                             <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                                 <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -55,25 +55,9 @@
                         </button>
                     </div>
                         <nav :class="{'block': open, 'hidden': !open}" class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                            <x-admin-links :href="route('admin.roles.index')" :active="request()->route('admin.roles.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                                <i class='bx bx-shield-alt mr-2 icon-colored'></i> Roles
-                            </x-admin-links>
-                            <x-admin-links :href="route('admin.permissions.index')" :active="request()->route('admin.permissions.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                                <i class='bx bx-key mr-2 icon-colored'></i> Permissions
-                            </x-admin-links>
-                            <x-admin-links :href="route('admin.users.index')" :active="request()->route('admin.users.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                                <i class='bx bx-group mr-2 icon-colored'></i> Users
-                            </x-admin-links>
-                            <x-admin-links :href="route('admin.users.create')" :active="request()->route('admin.users.create')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                                <i class='bx bx-user-plus mr-2 icon-colored'></i> Add-User
-                            </x-admin-links>
-
-                            <x-admin-links 
-                            :href="route('reports.index')" 
-                            :active="request()->routeIs('reports.index')" 
-                            class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline"              >
-                            <i class='bx bx-file mr-2 icon-colored'></i> Reports
-                        </x-admin-links>
+                            <x-report-links :href="route('reports.create')" :active="request()->route('reports.create')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
+                                <i class='bx bx-shield-alt mr-2 icon-colored'></i> New report
+                            </x-report-links>
                         
                             <div @click.away="open = false" class="relative" x-data="{ open: false }">
                                 <button @click="open = !open" class="hover-link flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg focus:outline-none focus:shadow-outline">

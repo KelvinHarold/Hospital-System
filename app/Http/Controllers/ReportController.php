@@ -3,39 +3,68 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        //
+        $reports = Report::all();
+        return view('reports.index', compact('reports'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    
+    public function create(Request $request)
     {
-        //
+        $reportTypes = DB::select("SHOW COLUMNS FROM reports WHERE Field = 'report_type'");
+        preg_match('/enum\((.*)\)/', $reportTypes[0]->Type, $matches);
+        $enumValues = array_map(function ($value) {
+            return trim($value, "'");
+        }, explode(',', $matches[1]));
+    
+        return view('reports.create', compact('enumValues'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'report_type' => 'required|string',
+            'description' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
+        ]);
+    
+        $filePath = null;
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('reports', 'public');
+        }
+    
+        Report::create([
+            'user_id' => Auth::id(),
+            'report_type' => $request->report_type,
+            'description' => $request->description,
+            'file_path' => $filePath,
+        ]);
+    
+        return redirect()->route('reports.index')->with('success', 'Report submitted!');
+    }
+    
+    public function print(Report $report)
+    {
+        $pdf = PDF::loadView('reports.pdf', compact('report'));
+        
+        return $pdf->stream('report-'.$report->id.'.pdf');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $report = Report::findOrFail($id);
+        return view('reports.show', compact('report'));
     }
 
     /**
@@ -60,5 +89,5 @@ class ReportController extends Controller
     public function destroy(string $id)
     {
         //
-    }
+}
 }

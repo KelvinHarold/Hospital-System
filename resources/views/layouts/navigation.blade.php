@@ -19,8 +19,7 @@
                         <p class="user-name-decor">Welcome: {{ Auth::user()->name }}</p>
                     </div>
                     
-                    <!--Commented limks that are hidden from the dashboard when created 
-                        but they can be visible when needed by teh developer
+                    <!--Commented
                     @role('admin')
                     <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')" class="nav-item flex items-center">
                         <i class='bx bx-user-circle text-lg me-1 icon-colored'></i> {{ __('Admin') }}

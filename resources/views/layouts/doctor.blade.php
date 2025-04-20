@@ -74,6 +74,12 @@
                         <i class='bx bx-chat mr-2 icon-colored'></i> Chats
                     </x-doctor-links>
 
+                    <x-admin-links 
+                    :href="route('reports.index')" 
+                    :active="request()->routeIs('reports.index')" 
+                    class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline"              >
+                    <i class='bx bx-file mr-2 icon-colored'></i> Reports
+                </x-admin-links>
                 
 
                     <!-- Dropdown User -->

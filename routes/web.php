@@ -23,7 +23,7 @@ use App\Http\Controllers\BreastfeedingDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
-
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,7 +34,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware(['auth', 'verified', 'role:admin']) // Only for authenticated, verified, and admin role
     ->name('admin.')                                // Route names will be like admin.index, admin.roles.index
-    ->prefix('admin')                               // URL will be like /admin/roles
+    ->prefix('admin')                               // URL will be like /admin/
     ->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('index'); // admin.index => /admin
         Route::get('/user-role-counts', [IndexController::class, 'getUserRoleCounts'])->name('user-role-counts');
@@ -185,6 +185,16 @@ Route::middleware(['auth', 'role:doctor'])->get('/doctordashboard', [DoctorContr
 Route::middleware(['auth'])->group(function () {
     Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
     Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+});
+
+
+Route::prefix('reports')->name('reports.')->group(function () {
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+    Route::get('/create', [ReportController::class, 'create'])->name('create');
+    Route::post('/', [ReportController::class, 'store'])->name('store');
+    Route::get('/{id}', [ReportController::class, 'show'])->name('show');
+    Route::delete('/{id}', [ReportController::class, 'destroy'])->name('destroy');
+    Route::get('/{report}/print', [ReportController::class, 'print'])->name('print');
 });
 
 require __DIR__ . '/auth.php';
