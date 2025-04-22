@@ -16,6 +16,7 @@ class IndexController extends Controller
             'pregnantCount' => User::role('pregnant-woman')->count(),
             'breastfeedingCount' => User::role('breastfeeding-woman')->count(),
             'childCount' => User::role('child')->count(),
+            'organisationCount' => User::role('organisation')->count(),
         ]);
     }
 
@@ -23,13 +24,14 @@ class IndexController extends Controller
     public function getUserRoleCounts()
     {
         return response()->json([
-            'labels' => ['Admins', 'Doctors', 'Pregnant Women', 'Breastfeeding Women', 'Children'],
+            'labels' => ['Admins', 'Doctors', 'Pregnant Women', 'Breastfeeding Women', 'Children', 'Organisations'],
             'data' => [
                 User::role('admin')->count(),
                 User::role('doctor')->count(),
                 User::role('pregnant-woman')->count(),
                 User::role('breastfeeding-woman')->count(),
                 User::role('child')->count(),
+                User::role('organisation')->count(),
             ],
         ]);
     }

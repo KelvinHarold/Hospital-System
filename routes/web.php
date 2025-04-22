@@ -23,6 +23,7 @@ use App\Http\Controllers\BreastfeedingDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
@@ -187,7 +188,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
 });
 
-
+// reports routes
 Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/', [ReportController::class, 'index'])->name('index');
     Route::get('/create', [ReportController::class, 'create'])->name('create');
@@ -195,6 +196,12 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/{id}', [ReportController::class, 'show'])->name('show');
     Route::delete('/{id}', [ReportController::class, 'destroy'])->name('destroy');
     Route::get('/{report}/print', [ReportController::class, 'print'])->name('print');
+    Route::post('/organisation/share', [ReportController::class, 'share'])->name('share');
+});
+
+Route::middleware(['auth'])->group(function () {
+  Route::get('/organisation', [OrganisationController::class, 'index'])->name('organisation.index');
+  
 });
 
 require __DIR__ . '/auth.php';

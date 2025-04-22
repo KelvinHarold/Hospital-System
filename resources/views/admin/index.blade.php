@@ -9,6 +9,7 @@
                 <x-dashboard-card title="Pregnant Women" :count="$pregnantCount" icon="female" />
                 <x-dashboard-card title="Breastfeeding Women" :count="$breastfeedingCount" icon="baby" />
                 <x-dashboard-card title="Children" :count="$childCount" icon="child" />
+                <x-dashboard-card title="Organisations" :count="$organisationCount" icon="building" />
             </div>
 
             {{-- Chart --}}

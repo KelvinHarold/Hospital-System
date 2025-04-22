@@ -31,12 +31,6 @@
                     class="inline-block px-5 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors duration-200">
                         Log in
                     </a>
-                        @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="inline-block px-5 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors duration-200">
-                                Register
-                            </a>
-                        @endif
                     @endauth
                 </nav>
             @endif

@@ -92,6 +92,23 @@
                                     <i class="fas fa-print mr-2"></i>
                                     Print
                                 </a>
+
+                                <form action="{{ route('reports.share') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                
+                                    <input type="hidden" name="report_type" value="{{ $report->report_type }}">
+                                    <input type="hidden" name="description" value="{{ $report->description }}">
+                            
+                                    <input type="hidden" name="existing_file_path" value="{{ $report->file_path }}">
+
+                                
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors duration-200 flex items-center">
+                                        <i class="fas fa-share mr-2"></i>
+                                        Share
+                                    </button>
+                                </form>
+                                
                                 <form method="POST" action="{{ route('reports.destroy', $report->id) }}">
                                     @csrf
                                     @method('DELETE')

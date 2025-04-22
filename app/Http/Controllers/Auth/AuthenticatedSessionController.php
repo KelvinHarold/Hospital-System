@@ -48,6 +48,8 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->route('doctor.index');
             case 'breastfeeding-woman':
                 return redirect()->route('breastfeeding.index');
+                case 'organisation':
+                    return redirect()->route('organisation.index');
             default:
                 return redirect('/login'); // fallback
         }

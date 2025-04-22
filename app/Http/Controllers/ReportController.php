@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organisation;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Report;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -66,6 +68,38 @@ class ReportController extends Controller
         $report = Report::findOrFail($id);
         return view('reports.show', compact('report'));
     }
+    public function share(Request $request)
+    {
+        $request->validate([
+            'report_type' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'file_path' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048'
+        ]);
+    
+        $user = User::find(auth()->id());
+        $role = $user->getRoleNames()->first();
+    
+        // Use uploaded file if present, otherwise reuse file path
+        $filePath = null;
+        if ($request->hasFile('file_path')) {
+            $file = $request->file('file_path');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/reports', $fileName, 'public');
+        } elseif ($request->has('existing_file_path')) {
+            $filePath = $request->input('existing_file_path');
+        }
+    
+        Organisation::create([
+            'user_id' => $user->id,
+            'role' => $role,
+            'report_type' => $request->input('report_type'),
+            'description' => $request->input('description'),
+            'file_path' => $filePath,
+        ]);
+    
+        return redirect()->route('reports.index')->with('success', 'Report shared to organisation!');
+    }
+    
 
     /**
      * Show the form for editing the specified resource.
