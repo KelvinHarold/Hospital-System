@@ -27,7 +27,6 @@ class BreastfeedingAppointmentController extends Controller
             'doctor_id' => 'required|exists:users,id',
             'patient_name' => 'required|string|max:255',
             'appointment_date' => 'required|date',
-            'status' => 'required|in:scheduled,completed,cancelled',
             'notes' => 'nullable|string',
         ]);
         
@@ -36,7 +35,6 @@ class BreastfeedingAppointmentController extends Controller
             'doctor_id' => $request->doctor_id, // The doctor selected from the list
             'patient_name' => $request->patient_name,
             'appointment_date' => $request->appointment_date,
-            'status' => $request->status,
             'notes' => $request->notes,
         ]);
         

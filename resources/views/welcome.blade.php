@@ -22,9 +22,9 @@
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                    <a href="{{ url('/dashboard') }}"
-                        class="inline-block px-5 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-200">
-                        Dashboard
+                    <a href="{{ route('login') }}"
+                    class="inline-block px-5 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors duration-200">
+                        Log in
                     </a>
                 @else
                     <a href="{{ route('login') }}"

@@ -21,6 +21,7 @@ use App\Http\Controllers\PregnantDashboardController;
 use App\Http\Controllers\DoctorDashboardController;
 use App\Http\Controllers\BreastfeedingDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Auth\PasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\OrganisationController;
@@ -64,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
 });
 
 
@@ -200,8 +202,12 @@ Route::prefix('reports')->name('reports.')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-  Route::get('/organisation', [OrganisationController::class, 'index'])->name('organisation.index');
-  
+    Route::get('/organisation', [OrganisationController::class, 'index'])->name('organisation.index');
+    Route::get('/organisation/reports/{id}', [OrganisationController::class, 'show'])->name('organisation.reports.show');
+    Route::delete('/organisation/reports/{id}', [OrganisationController::class, 'destroy'])->name('organisation.reports.destroy');
+    Route::get('/reports/{report}/print', [ReportController::class, 'print'])->name('reports.print');
+
 });
+
 
 require __DIR__ . '/auth.php';

@@ -22,7 +22,6 @@
                                 <tr class="border-b text-gray-700 bg-gray-100">
                                     <th class="px-4 py-3 text-left">Patient Name</th>
                                     <th class="px-4 py-3 text-left">Appointment Date</th>
-                                    <th class="px-4 py-3 text-left">Status</th>
                                     <th class="px-4 py-3 text-left">Notes</th>
                                     <th class="px-4 py-3 text-left">Feedback</th>
                                 </tr>
@@ -33,12 +32,6 @@
                                         <td class="px-4 py-3">{{ $appointment->patient_name }}</td>
                                         <td class="px-4 py-3">
                                             {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y - H:i') }}
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold 
-                                                {{ $appointment->status == 'scheduled' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white' }}">
-                                                {{ ucfirst($appointment->status) }}
-                                            </span>
                                         </td>
                                         <td class="px-4 py-3">{{ $appointment->notes }}</td>
                                         <td class="px-4 py-3">
@@ -70,6 +63,18 @@
                     <div class="mb-4">
                         <label class="block mb-1 font-medium">Message</label>
                         <textarea name="message" class="w-full p-2 border border-gray-300 rounded" x-text="message" readonly></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <div class="relative">
+                            <select name="status" 
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white">
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    
+                            <i class='bx bx-list-check absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500'></i>
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label class="block mb-1 font-medium">Reply</label>

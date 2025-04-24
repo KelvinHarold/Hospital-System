@@ -39,12 +39,14 @@ public function store(Request $request){
     'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|string|confirmed|min:8',
+        'phone'=>'required',
   ]); 
 
   User::create([
     'name'=>$data['name'],
     'email'=>$data['email'],
     'password'=>bcrypt($data['password']),
+    'phone'=>$data['phone'],
   ]);
 
   return redirect()->route('admin.users.index')->with('success', 'User created successfully');

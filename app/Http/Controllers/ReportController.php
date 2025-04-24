@@ -9,6 +9,7 @@ use App\Models\Report;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class ReportController extends Controller
 {
@@ -57,7 +58,7 @@ class ReportController extends Controller
     {
         $pdf = PDF::loadView('reports.pdf', compact('report'));
         
-        return $pdf->stream('report-'.$report->id.'.pdf');
+        return $pdf->download('report-'.$report->id.'.pdf');
     }
 
     /**
@@ -92,13 +93,23 @@ class ReportController extends Controller
         Organisation::create([
             'user_id' => $user->id,
             'role' => $role,
+            'email' => $request->input('email'), // Store selected user's email
             'report_type' => $request->input('report_type'),
             'description' => $request->input('description'),
             'file_path' => $filePath,
         ]);
+        
     
         return redirect()->route('reports.index')->with('success', 'Report shared to organisation!');
     }
+
+    public function getUsersByRole($role)
+{
+    // Get users by role and return email
+    $users = Role::findByName($role)->users()->get(['id', 'email']);
+    return response()->json($users);
+}
+
     
 
     /**

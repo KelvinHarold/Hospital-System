@@ -57,12 +57,9 @@
                         </x-pregnant-links>
                         <x-pregnant-links :href="route('pregnant.show')" :active="request()->route('pregnant.show')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
                             <i class="bx bx-child icon-colored"></i>Child-Record
-                        </x-pregnant-links>
-                        <x-pregnant-links :href="route('pregnant.index')" :active="request()->route('pregnant.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
+                        </x-pregnant-links> 
+                        <x-pregnant-links :href="route('appointments.index')" :active="request()->route('appointments.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
                             <i class="bx bx-calendar icon-colored"></i>Appointment
-                        </x-pregnant-links>
-                        <x-pregnant-links :href="route('pregnant.index')" :active="request()->route('pregnant.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                            <i class="bx bx-comment icon-colored"></i>Feedback
                         </x-pregnant-links>
                         <x-pregnant-links :href="route('pregnant.index')" :active="request()->route('pregnant.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
                             <i class="bx bx-alarm icon-colored"></i>Reminders

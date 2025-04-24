@@ -96,7 +96,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Patient Name</label>
                             <div class="relative">
-                                <input type="text" name="patient_name" required 
+                                <input type="text" name="patient_name" required readonly
                                 value="{{ auth()->user()->name }}"
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">                         
                             </div>
@@ -110,22 +110,6 @@
                                 <i class='bx bx-calendar absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500'></i>
                             </div>
                         </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                            <div class="relative">
-                                <select name="status" 
-                                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white">
-                                        <selec name="status" 
-                                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white">
-                                    <option value="scheduled">Scheduled</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                                <i class='bx bx-list-check absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500'></i>
-                            </div>
-                        </div>
-
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
                             <div class="relative">

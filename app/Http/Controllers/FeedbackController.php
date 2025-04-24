@@ -11,8 +11,11 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'appointment_id' => 'required|exists:appointments,id',
-            'reply' => 'required|string|max:1000',
+            $request->validate([
+                'appointment_id' => 'required|exists:appointments,id',
+                'reply' => 'required|string|max:1000',
+                'status' => 'required|in:completed,cancelled', // Ensure status is either completed or cancelled
+            ])
         ]);
 
         $appointment = Appointment::findOrFail($request->appointment_id);
@@ -22,7 +25,9 @@ class FeedbackController extends Controller
             'doctor_id' => Auth::id(),
             'message' => $appointment->notes,
             'reply' => $request->reply,
+            'status' => $request->status, // Add the status field here
         ]);
+        
 
         return redirect()->back()->with('success', 'Feedback sent successfully.');
     }

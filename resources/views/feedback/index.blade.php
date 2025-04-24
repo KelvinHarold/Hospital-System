@@ -1,4 +1,4 @@
-<x-doctor-layout>
+<x-Feedback-layout>
     <div class="max-w-6xl mx-auto px-4 py-6">
         <h2 class="text-3xl font-bold mb-6 text-blue-800">Doctor Replies</h2>
 
@@ -9,6 +9,7 @@
                         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">#</th>
                         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Doctor</th>
                         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Reply</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Status</th>
                         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Date</th>
                         <th class="px-6 py-3 text-center text-sm font-medium text-gray-700">Action</th>
                     </tr>
@@ -21,6 +22,7 @@
                                 {{ $feedback->doctor->name ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-800">{{ $feedback->reply }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-800">{{ $feedback->status }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">{{ $feedback->created_at->format('Y-m-d H:i') }}</td>
                             <td class="px-6 py-4 text-center">
                                 <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this reply?')">
@@ -43,4 +45,4 @@
             </table>
         </div>
     </div>
-</x-doctor-layout>
+</x-Feedback-layout>
