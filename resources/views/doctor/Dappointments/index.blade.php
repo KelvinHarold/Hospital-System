@@ -24,6 +24,7 @@
                                     <th class="px-4 py-3 text-left">Appointment Date</th>
                                     <th class="px-4 py-3 text-left">Notes</th>
                                     <th class="px-4 py-3 text-left">Feedback</th>
+                                    <th class="px-4 py-3 text-left">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,16 @@
                                                 class="text-blue-500 hover:text-blue-700 font-semibold">
                                                 Give Feedback
                                             </button>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('doctor.appointment.delete', $appointment->id) }}" method="POST" 
+                                                class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors duration-200">
+                                              @csrf
+                                              @method('DELETE')
+                                              <button type="submit" class="flex items-center">
+                                                  <i class='bx bx-trash mr-1'></i> Delete
+                                              </button>
+                                          </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -85,6 +96,10 @@
                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Submit</button>
                     </div>
                 </form>
+            </div>
+              <!-- Pagination Links -->
+              <div class="mt-4">
+                {{ $appointments->links() }}
             </div>
         </div>
     </div>

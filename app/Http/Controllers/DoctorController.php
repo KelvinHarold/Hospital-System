@@ -36,5 +36,9 @@ class DoctorController extends Controller
         // Return the view with the necessary data
         return view('doctor.index', compact('pregnantWomenCount', 'breastfeedingWomenCount', 'childrenCount', 'childrenDiseases', 'pregnantDiseases'));
     }
+
+    public function home(){
+        return view('doctor.index');
+    }
 }
 

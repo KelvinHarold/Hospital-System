@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
   public function index(){
-    $users = User::all();
+    $users = User::paginate(10);
 
     return view('admin.users.index', compact('users'));
   }
@@ -95,5 +95,21 @@ public function destroy(User $user)
     $user->delete();
     return back()->with('message', 'User deleted successfully.');
 }
+
+// In UserController.php
+
+public function updateStatus(Request $request)
+{
+    $user = User::find($request->user_id);  // Find user by ID
+    if ($user) {
+        $user->is_active = $request->is_active;  // Update the active status
+        $user->save();  // Save to the database
+        return response()->json(['message' => 'Status updated successfully'], 200);
+    } else {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+}
+
+
 
 }

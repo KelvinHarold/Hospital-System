@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\User;
+use App\Notifications\AppointmentBooked;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,13 +15,16 @@ class BreastfeedingAppointmentController extends Controller
      */
     public function index()
     {
-        $doctors =User::role('doctor')->get();
+        // Fetch doctors who have 'is_active' status of 1
+        $doctors = User::role('doctor')->where('is_active', 1)->get();
         return view('breastfeeding.Bappointments.index', compact('doctors'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -29,17 +33,22 @@ class BreastfeedingAppointmentController extends Controller
             'appointment_date' => 'required|date',
             'notes' => 'nullable|string',
         ]);
-        
-        Appointment::create([
-            'user_id' => Auth::id(), // The patient (logged-in user)
-            'doctor_id' => $request->doctor_id, // The doctor selected from the list
+    
+        $appointment = Appointment::create([
+            'user_id' => Auth::id(),
+            'doctor_id' => $request->doctor_id,
             'patient_name' => $request->patient_name,
             'appointment_date' => $request->appointment_date,
             'notes' => $request->notes,
         ]);
-        
+    
+        // Send notification to the doctor
+        $doctor = User::find($request->doctor_id);
+        $doctor->notify(new AppointmentBooked($appointment));
+    
         return redirect()->back()->with('success', 'Appointment successfully booked.');
     }
+    
     public function show(string $id)
     {
         //

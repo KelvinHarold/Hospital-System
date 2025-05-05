@@ -65,7 +65,15 @@
 
     <!-- Footer -->
     <footer class="mt-16 text-center text-gray-500">
-        <p>&copy; {{ date('Y') }} MtotoClinic. All rights reserved.</p>
+         <!-- Logo -->
+         <div class="shrink-0 flex items-center space-x-2">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                <span class="text-xl font-semibold text-blue-600">MtotoClinic</span>
+            </a>
+            <span> <p>&copy; {{ date('Y') }} MtotoClinic. All rights reserved.</p></span>
+        </div>
+       
     </footer>
 
     @if (Route::has('login'))

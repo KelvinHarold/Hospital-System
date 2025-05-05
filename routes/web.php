@@ -22,6 +22,7 @@ use App\Http\Controllers\DoctorDashboardController;
 use App\Http\Controllers\BreastfeedingDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\AIChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\OrganisationController;
@@ -57,6 +58,9 @@ Route::middleware(['auth', 'verified', 'role:admin']) // Only for authenticated,
     });
 
 // Add-User routes and the routes are
+// In routes/web.php
+
+Route::post('/user/update-status', [UserController::class, 'updateStatus'])->name('user.update-status');
 Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
 Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
 
@@ -106,15 +110,19 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     // hii inampeleka kwenye doctor index (Dashboard)
     Route::get('/doctor.index', [DoctorController::class, 'index'])->name('doctor.index');
+    Route::get('/doctor.home', [DoctorController::class, 'home'])->name('doctor.home');
 });
 
 
-// and the system of the authoried user can the be related by  the authorized people of the system that cant  be manipulated by the authorized people  of the system it self
+
 
 
 // Doctor Appointment Controller
-Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index'])->name('doctor.appointments.index');
+Route::middleware('auth')->group(function(){
+    Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index'])->name('doctor.appointments.index');
+Route::delete('doctor/appointments/{id}', [DoctorAppointmentController::class, 'delete'])->name('doctor.appointment.delete');
 
+});
 
 
 
@@ -208,6 +216,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/{report}/print', [ReportController::class, 'print'])->name('reports.print');
 
 });
+
+
+
+Route::get('/chat', [AIChatController::class, 'index'])->name('chat.index');
+Route::post('/chat', [AIChatController::class, 'ask'])->name('chat.ask');
 
 
 require __DIR__ . '/auth.php';

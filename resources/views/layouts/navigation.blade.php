@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center space-x-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <span class="text-xl font-semibold text-orange-500">MtotoClinic</span>
+                        <span class="text-xl font-semibold text-blue-700">MtotoClinic</span>
                     </a>
                 </div>
                 
@@ -15,9 +15,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                    <div class="flex items-center text-orange-500 font-semibold text-lg">
+                    <div class="flex items-center text-blue-700 font-semibold text-lg">
                         <p class="user-name-decor">Welcome: {{ Auth::user()->name }}</p>
                     </div>
+
+                    
+                    <!-- Display Active Toggle Only for Admin -->
+                    @role('doctor')
+                    <div class="flex items-center space-x-3">
+                        <label for="active-toggle" class="text-lg font-semibold text-gray-700">Active:</label>
+                        <input type="checkbox" id="active-toggle" x-model="isActive" class="toggle-checkbox" @change="updateStatus()" />
+                        <span x-text="isActive ? 'ON' : 'OFF'" class="text-sm font-medium text-gray-600"></span>
+                    </div>
+                    @endrole
                     
                     <!--Commented
                     @role('admin')
@@ -209,4 +219,51 @@
     .nav-item:hover .icon-colored {
         color: #4D1489;
     }
+        /* Toggle Styles */
+        .toggle-checkbox {
+        width: 40px;
+        height: 20px;
+        border-radius: 9999px;
+        background-color: #ccc;
+        position: relative;
+        transition: background-color 0.3s ease;
+    }
+
+    .toggle-checkbox:checked {
+        background-color: #4CAF50;
+    }
+
+    .toggle-checkbox:checked::before {
+        left: 20px;
+    }
+
+    .toggle-checkbox::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: left 0.3s ease;
+    }
 </style>
+<script>
+    function updateStatus() {
+        // Assuming you have a user ID and an active status to send to the server
+        const userId = {{ Auth::user()->id }};  // Assuming you're using Blade to pass user ID
+        
+        axios.post('/user/update-status', {
+            user_id: userId,
+            is_active: this.isActive
+        })
+        .then(response => {
+            // Optionally, handle the response
+            console.log('Status updated successfully:', response.data);
+        })
+        .catch(error => {
+            console.error('There was an error updating the status:', error);
+        });
+    }
+</script>
