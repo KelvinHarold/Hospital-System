@@ -2,10 +2,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  
     <div class="max-w-6xl mx-auto px-4">
+        
         <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Doctor Dashboard</h1>
  
        <!-- 👩‍⚕️ User Stats Section -->
        <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-12">
+        
            <!-- Pregnant Women -->
            <div class="bg-white shadow-md rounded-lg p-4 w-64 flex items-center space-x-4">
                <i class='bx bx-female text-4xl text-blue-500'></i>

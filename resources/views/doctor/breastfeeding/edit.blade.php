@@ -1,4 +1,5 @@
 <x-doctor-layout>
+    @include('components.success-message')
     <div class="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-xl rounded-xl border border-gray-200">
         <div class="flex items-center justify-center mb-6">
             <i class='bx bx-edit-alt text-3xl mr-3 text-[#FE6700]'></i>
@@ -63,7 +64,7 @@
             </div>
 
             <div class="flex justify-end gap-4 pt-4">
-                <a href="{{ route('doctor.breastfeeding.show', $user_id) }}"
+                <a href="{{ route('doctor.breastfeeding.show', $record->id) }}"
                     class="flex items-center px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg transition duration-200 shadow-md">
                     <i class='bx bx-x mr-2'></i> Cancel
                 </a>

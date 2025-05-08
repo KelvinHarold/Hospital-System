@@ -39,7 +39,7 @@
     <!-- Welcome Section -->
     <div class="text-center mb-12">
         <h1 class="text-4xl lg:text-6xl font-bold text-blue-600 mb-4">Welcome to MtotoClinic</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Your trusted partner in maternal and child healthcare</p>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Tunza Mama, Linda Mtoto, Jenga Taifa Imara</p>
     </div>
 
     <!-- Features Grid -->

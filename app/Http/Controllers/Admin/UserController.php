@@ -16,6 +16,8 @@ class UserController extends Controller
     return view('admin.users.index', compact('users'));
   }
 
+ 
+
   public function roles()
 {
     $users = User::with(['roles', 'permissions'])->get();
@@ -93,7 +95,7 @@ public function destroy(User $user)
       return back()->with('message', 'You cannot delete an admin user.');
   }
     $user->delete();
-    return back()->with('message', 'User deleted successfully.');
+    return back()->with('success', 'User deleted successfully.');
 }
 
 // In UserController.php

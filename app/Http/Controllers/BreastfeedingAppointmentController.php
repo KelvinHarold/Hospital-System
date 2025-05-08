@@ -16,7 +16,7 @@ class BreastfeedingAppointmentController extends Controller
     public function index()
     {
         // Fetch doctors who have 'is_active' status of 1
-        $doctors = User::role('doctor')->where('is_active', 1)->get();
+        $doctors = User::role('doctor')->get();
         return view('breastfeeding.Bappointments.index', compact('doctors'));
     }
     

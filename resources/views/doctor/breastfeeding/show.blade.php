@@ -1,5 +1,6 @@
 <x-doctor-layout>
     <div class="max-w-6xl mx-auto py-10">
+        @include('components.success-message')
         <div class="flex items-center justify-center mb-6">
             <i class='bx bx-baby-carriage text-3xl mr-3 text-[#FE6700]'></i>
             <h2 class="text-3xl font-bold text-gray-800">Breastfeeding Records for {{ $user->name }}</h2>

@@ -1,11 +1,11 @@
-<footer class="bg-gray-800 text-white py-8 mt-12 border-t border-gray-700">
+<footer class="bg-blue-400 text-white py-8 mt-12 border-t border-blue-400">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center sm:text-left">
             <!-- Contact Info -->
             <div>
                 <h3 class="text-lg font-semibold mb-2">Contact Us</h3>
                 <p class="text-sm flex items-center justify-center sm:justify-start">
-                    <i class='bx bx-envelope mr-2 text-blue-400'></i> info@mtotoclinic.com
+                    <i class='bx bx-envelope mr-2 text-green-400'></i> info@mtotoclinic.com
                 </p>
                 <p class="text-sm flex items-center justify-center sm:justify-start mt-1">
                     <i class='bx bx-phone mr-2 text-green-400'></i> +255 123 456 789
@@ -16,8 +16,8 @@
             <div>
                 <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
                 <ul class="text-sm space-y-1">
-                    <li><a href="{{ route('dashboard') }}" class="hover:text-blue-400">Dashboard</a></li>
-                    <li><a href="{{ route('profile.edit') }}" class="hover:text-blue-400">Profile</a></li>
+                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('profile.edit') }}">Profile</a></li>
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="hover:text-blue-400">Logout</a></li>
                 </ul>
                 <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
@@ -33,9 +33,9 @@
         </div>
 
         <!-- Bottom -->
-        <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm text-gray-400">
+        <div class="border-t border-white-700 mt-8 pt-4 text-center text-sm text-white-400">
             &copy; 2025 MtotoClinic. All rights reserved. <br>
-            <span class="text-xs">Designed and developed by <span class="text-white font-semibold">Your Company</span></span>
+            <span class="text-xs">Designed and developed by <span class="text-white font-semibold">JCodes Company</span></span>
         </div>
     </div>
 </footer>

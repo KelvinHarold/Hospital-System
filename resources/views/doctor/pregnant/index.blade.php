@@ -1,12 +1,7 @@
 <x-doctor-layout>
     <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session('succsess'))
-                <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2 mb-4 flex items-center">
-                    <i class='bx bx-check-circle mr-2'></i> {{ session('succsess') }}
-                </div>
-            @endif
-            
+            @include('components.success-message')
             <div class="flex items-center justify-center mb-6">
                 <i class='bx bx-female text-3xl mr-3 text-[#FE6700]'></i>
                 <h1 class="text-3xl font-bold text-gray-800">Pregnant Women</h1>
@@ -61,6 +56,11 @@
                     </table>
                 </div>
             </div>
+             <!-- Pagination Scripts -->
+            <div class="mt-6 flex justify-center">
+                {{ $pregnants->links('pagination::tailwind') }}
+            </div>
+            
         </div>
     </div>
 </x-doctor-layout>

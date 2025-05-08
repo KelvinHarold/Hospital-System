@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center space-x-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <span class="text-xl font-semibold text-blue-700">MtotoClinic</span>
+                        <span class="text-xl font-semibold text-blue-400">MtotoClinic</span>
                     </a>
                 </div>
                 
@@ -15,19 +15,26 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                    <div class="flex items-center text-blue-700 font-semibold text-lg">
+                    <div class="flex items-center text-blue-400 font-semibold text-lg">
                         <p class="user-name-decor">Welcome: {{ Auth::user()->name }}</p>
                     </div>
 
                     
-                    <!-- Display Active Toggle Only for Admin -->
-                    @role('doctor')
-                    <div class="flex items-center space-x-3">
-                        <label for="active-toggle" class="text-lg font-semibold text-gray-700">Active:</label>
-                        <input type="checkbox" id="active-toggle" x-model="isActive" class="toggle-checkbox" @change="updateStatus()" />
-                        <span x-text="isActive ? 'ON' : 'OFF'" class="text-sm font-medium text-gray-600"></span>
-                    </div>
-                    @endrole
+                    @php
+    $user = Auth::user();
+@endphp
+
+@if ($user && $user->getRoleNames()->first() === 'doctor')
+    <div class="flex items-center space-x-3">
+        <label class="text-lg font-semibold text-gray-700">Status:</label>
+        @if ($user->is_active)
+            <span class="text-green-600 font-medium">Online</span>
+        @else
+            <span class="text-red-600 font-medium">Offline</span>
+        @endif
+    </div>
+@endif
+
                     
                     <!--Commented
                     @role('admin')
@@ -116,61 +123,6 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="nav-item flex items-center">
                 <i class='bx bx-home me-2 icon-colored'></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            
-            @role('admin')
-            <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')" class="nav-item flex items-center">
-                <i class='bx bx-user-circle me-2 icon-colored'></i> {{ __('Admin') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('doctor.index')" :active="request()->routeIs('doctor.index')" class="nav-item flex items-center">
-                <i class='bx bx-plus-medical me-2 icon-colored'></i> {{ __('Doctor') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('children.index')" :active="request()->routeIs('children.index')" class="nav-item flex items-center">
-                <i class='bx bx-child me-2 icon-colored'></i> {{ __('Children') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('pregnant.index')" :active="request()->routeIs('pregnant.index')" class="nav-item flex items-center">
-                <i class='bx bx-female me-2 icon-colored'></i> {{ __('Pregnant') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('breastfeeding.index')" :active="request()->routeIs('breastfeeding.index')" class="nav-item flex items-center">
-                <i class='bx bx-baby-carriage me-2 icon-colored'></i> {{ __('Breastfeeding') }}
-            </x-responsive-nav-link>
-            @endrole
-
-            @role('doctor')
-            <x-responsive-nav-link :href="route('doctor.index')" :active="request()->routeIs('doctor.index')" class="nav-item flex items-center">
-                <i class='bx bx-plus-medical me-2 icon-colored'></i> {{ __('Doctor') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('children.index')" :active="request()->routeIs('children.index')" class="nav-item flex items-center">
-                <i class='bx bx-child me-2 icon-colored'></i> {{ __('Children') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('pregnant.index')" :active="request()->routeIs('pregnant.index')" class="nav-item flex items-center">
-                <i class='bx bx-female me-2 icon-colored'></i> {{ __('Pregnant') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('breastfeeding.index')" :active="request()->routeIs('breastfeeding.index')" class="nav-item flex items-center">
-                <i class='bx bx-baby-carriage me-2 icon-colored'></i> {{ __('Breastfeeding') }}
-            </x-responsive-nav-link>
-            @endrole
-
-            @role('children')
-            <x-responsive-nav-link :href="route('children.index')" :active="request()->routeIs('children.index')" class="nav-item flex items-center">
-                <i class='bx bx-child me-2 icon-colored'></i> {{ __('Children') }}
-            </x-responsive-nav-link>
-            @endrole
-
-            @role('pregnant-woman')
-            <x-responsive-nav-link :href="route('pregnant.index')" :active="request()->routeIs('pregnant.index')" class="nav-item flex items-center">
-                <i class='bx bx-female me-2 icon-colored'></i> {{ __('Pregnant') }}
-            </x-responsive-nav-link>
-            @endrole
-
-            @role('breastfeeding-woman')
-            <x-responsive-nav-link :href="route('breastfeeding.index')" :active="request()->routeIs('breastfeeding.index')" class="nav-item flex items-center">
-                <i class='bx bx-baby-carriage me-2 icon-colored'></i> {{ __('Breastfeeding') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('children.index')" :active="request()->routeIs('children.index')" class="nav-item flex items-center">
-                <i class='bx bx-child me-2 icon-colored'></i> {{ __('Children') }}
-            </x-responsive-nav-link>
-            @endrole
-        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

@@ -13,7 +13,8 @@ class DoctorPregnantController extends Controller
      */
     public function index()
     {
-        $pregnants = User::role('pregnant-woman')->get();
+        $pregnants = User::role('pregnant-woman')->paginate(5);
+       
         return view('doctor.pregnant.index', compact('pregnants'));
     }
 

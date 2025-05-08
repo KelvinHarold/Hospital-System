@@ -24,6 +24,9 @@
                         <th class="py-4 px-6 font-semibold text-sm uppercase tracking-wider">
                             <i class='bx bx-calendar mr-2'></i> Action
                         </th>
+                        <th class="py-4 px-6 font-semibold text-sm uppercase tracking-wider">
+                            <i class='bx bx-envelope mr-2'></i> Status
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -47,6 +50,18 @@
                                     <i class='bx bx-calendar-plus mr-2'></i> Book Appointment
                                 </button>
                             </td>
+                            <td class="py-4 px-6 text-sm text-gray-700">
+                                @if($doctor->is_active)
+                                    <span class="inline-flex items-center px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
+                                        <i class='bx bx-check-circle mr-1'></i> Active
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-3 py-1 text-sm font-medium text-red-800 bg-red-100 rounded-full">
+                                        <i class='bx bx-x-circle mr-1'></i> Inactive
+                                    </span>
+                                @endif
+                            </td>
+                            
                         </tr>
                     @empty
                         <tr>

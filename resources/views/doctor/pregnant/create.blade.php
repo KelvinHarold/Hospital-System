@@ -1,5 +1,6 @@
 <x-doctor-layout>
     <div class="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-xl rounded-xl border border-gray-200">
+        @include('components.success-message')
         <div class="flex items-center justify-center mb-6">
             <i class='bx bx-female text-3xl mr-3 text-[#FE6700]'></i>
             <h2 class="text-3xl font-bold text-gray-800">Add Pregnancy Record</h2>

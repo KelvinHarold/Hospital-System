@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,6 +30,12 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        // Set is_active = 1 if the logged-in user is a doctor
+        if ($user->hasRole('doctor')) {
+            $user->is_active = 1;
+            $user->save();
+        }
+
         return $this->redirectToDashboard($user);
     }
 
@@ -48,8 +55,8 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->route('doctor.index');
             case 'breastfeeding-woman':
                 return redirect()->route('breastfeeding.index');
-                case 'organisation':
-                    return redirect()->route('organisation.index');
+            case 'organisation':
+                return redirect()->route('organisation.index');
             default:
                 return redirect('/login'); // fallback
         }
@@ -60,6 +67,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+
+        // ✅ Set is_active = 0 if the user is a doctor
+        if ($user && $user->hasRole('doctor')) {
+            $user->is_active = 0;
+            $user->save();
+        }
+
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

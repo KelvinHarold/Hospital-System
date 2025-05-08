@@ -59,7 +59,6 @@ Route::middleware(['auth', 'verified', 'role:admin']) // Only for authenticated,
 
 // Add-User routes and the routes are
 // In routes/web.php
-
 Route::post('/user/update-status', [UserController::class, 'updateStatus'])->name('user.update-status');
 Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
 Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');

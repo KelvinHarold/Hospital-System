@@ -97,10 +97,7 @@
                     </div>
                 </form>
             </div>
-              <!-- Pagination Links -->
-              <div class="mt-4">
-                {{ $appointments->links() }}
-            </div>
+            
         </div>
     </div>
 </x-doctor-layout>

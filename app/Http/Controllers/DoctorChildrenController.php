@@ -38,15 +38,18 @@ class DoctorChildrenController extends Controller
             'mother_id' => 'required|integer|exists:users,id',
             'mother_type' => 'required|string',
         ]);
-
-        // Automatically create a new User for the child
+    
+        // Create a new User for the child
         $childUser = User::create([
             'name' => $validated['name'],
-            'email' => $validated['name'] . '@example.com', // Placeholder email, you may change this logic
-            'password' => bcrypt('defaultpassword'), // Default password or logic for password
+            'email' => $validated['name'] . '@example.com', // You may improve this
+            'password' => bcrypt('defaultpassword'),
         ]);
-
-        // Create the child record with the newly created user's ID
+    
+        // ✅ Assign 'child' role using Spatie
+        $childUser->assignRole('child');
+    
+        // Create the child record
         $child = new Child([
             'name' => $validated['name'],
             'birth_date' => $validated['birth_date'],
@@ -56,13 +59,14 @@ class DoctorChildrenController extends Controller
             'notes' => $validated['notes'] ?? null,
             'mother_id' => $validated['mother_id'],
             'mother_type' => $validated['mother_type'],
-            'user_id' => $childUser->id, // Assign the newly created child's user ID
+            'user_id' => $childUser->id,
         ]);
-
+    
         $child->save();
-
-        return redirect()->route('doctor.breastfeeding.index')->with('success', 'Child record added successfully.');
+    
+        return redirect()->route('doctor.breastfeeding.index')->with('success', 'New child added successfully.');
     }
+    
 
     public function show($child_user_id)
     {

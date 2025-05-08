@@ -1,13 +1,6 @@
 <x-doctor-layout>
     <div class="container mx-auto px-4 py-6">
-
-        {{-- ✅ Success message --}}
-        @if (session('success'))
-            <div class="bg-green-500 text-white font-bold rounded px-4 py-3 mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
-
+        @include('components.success-message')
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold mb-6 text-center">Pregnant Details</h2>
 

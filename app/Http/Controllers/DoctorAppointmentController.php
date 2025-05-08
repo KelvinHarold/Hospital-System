@@ -16,8 +16,7 @@ class DoctorAppointmentController extends Controller
         // Retrieve all appointments for this doctor
         $appointments = Appointment::where('doctor_id', $doctorId)->get();
 
-        // pafinating  links hazionekani bado iweke sawa
-        $appointments= Appointment::paginate(3);
+        
 
         // Pass the appointments to the view
         return view('doctor.Dappointments.index', compact('appointments'));

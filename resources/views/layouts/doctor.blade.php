@@ -39,7 +39,7 @@
         }
 
         .dropdown-link:hover {
-            background-color: #0A061A;
+            background-color:  rgb(58, 137, 240);
             color: #FEFEFE;
         }
         
@@ -50,7 +50,7 @@
         <div class="flex-col w-full md:flex md:flex-row md:min-h-screen">
             <div @click.away="open = false" class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-64 dark-mode:text-gray-200 dark-mode:bg-gray-800" x-data="{ open: false }">
                 <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
-                    <a href="#" class="text-lg font-semibold tracking-widest text-blue-700 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Doctor</a>
+                    <a href="#" class="text-lg font-semibold tracking-widest text-blue-400 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Doctor</a>
                     <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                         <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                             <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -58,65 +58,7 @@
                         </svg>
                     </button>
                 </div>
-                <nav :class="{'block': open, 'hidden': !open}" class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                    <x-doctor-links :href="route('doctor.index')" :active="request()->route('doctor.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                        <i class='bx bx-female mr-2 icon-colored'></i> Home
-                    </x-doctor-links>     <x-doctor-links :href="route('doctor.pregnant.index')" :active="request()->route('doctor.pregnant.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                        <i class='bx bx-female mr-2 icon-colored'></i> Pregnant-Woman
-                    </x-doctor-links>
-                    <x-doctor-links :href="route('doctor.breastfeeding.index')" :active="request()->route('doctor.breastfeeding.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                        <i class='bx bx-female mr-2 icon-colored'></i> Breastfeeding-Woman
-                    </x-doctor-links>
-                    <x-doctor-links :href="route('doctor.children.index')" :active="request()->route('doctor.children.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                        <i class='bx bx-child mr-2 icon-colored'></i> Children
-                    </x-doctor-links>
-
-                    <x-doctor-links :href="route('doctor.appointments.index')" :active="request()->route('doctor.appointments.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                        <i class='bx bx-calendar mr-2 icon-colored'></i> Appointment
-                    </x-doctor-links>
-
-                    
-                    <x-doctor-links :href="route('chats.index')" :active="request()->route('chats.index')" class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                        <i class='bx bx-chat mr-2 icon-colored'></i> Chats
-                    </x-doctor-links>
-
-                    <a href="{{ route('chat.index')}}" class="hover-link flex items-center px-4 py-2 mt-2 text-sm font-semibold rounded-lg">
-                        <i class='bx bx-brain mr-2 icon-colored'></i> AI Assistant
-                    </a>
-                    
-
-                    <x-admin-links 
-                    :href="route('reports.index')" 
-                    :active="request()->routeIs('reports.index')" 
-                    class="hover-link block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg focus:outline-none focus:shadow-outline"              >
-                    <i class='bx bx-file mr-2 icon-colored'></i> Reports
-                </x-admin-links>
-                
-
-                    <!-- Dropdown User -->
-                    <div @click.away="open = false" class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="hover-link flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg focus:outline-none focus:shadow-outline">
-                            <i class='bx bx-user mr-2 icon-colored'></i>
-                            <span>{{ Auth::user()->name }}</span>
-                            <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <div x-show="open" x-transition class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
-                            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-700">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')" class="dropdown-link block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg" onclick="event.preventDefault(); this.closest('form').submit();">
-                                        <i class='bx bx-log-out mr-2 icon-colored'></i> {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                                <a class="dropdown-link block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg" href="#">
-                                    <i class='bx bx-link-alt mr-2 icon-colored'></i> Link #1
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+                @include('layouts.navbar')
             </div>
 
             <div class="flex w-full bg-slate-50">
