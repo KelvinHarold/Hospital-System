@@ -35,4 +35,5 @@ class IndexController extends Controller
             ],
         ]);
     }
+    
 }

@@ -28,25 +28,24 @@
                 .then(response => response.json())
                 .then(({ labels, data }) => {
                     const ctx = document.getElementById('userChart').getContext('2d');
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, 'rgba(75, 192, 192, 0.4)');
-                    gradient.addColorStop(1, 'rgba(75, 192, 192, 0)');
-
+    
                     new Chart(ctx, {
-                        type: 'line',
+                        type: 'bar',
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: 'User Count',
+                                label: 'Number of Users',
                                 data: data,
-                                fill: true,
-                                backgroundColor: gradient,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                tension: 0.4,
-                                pointBackgroundColor: '#fff',
-                                pointBorderColor: 'rgba(75, 192, 192, 1)',
-                                pointHoverRadius: 5,
-                                pointRadius: 4
+                                backgroundColor: [
+                                    '#1f77b4', // Admins - blue
+                                    '#2ca02c', // Doctors - green
+                                    '#ff7f0e', // Pregnant Women - orange
+                                    '#d62728', // Breastfeeding Women - red
+                                    '#9467bd', // Children - purple
+                                    '#8c564b'  // Organisations - brown
+                                ],
+                                borderColor: '#fff',
+                                borderWidth: 1
                             }]
                         },
                         options: {
@@ -54,11 +53,44 @@
                             plugins: {
                                 legend: {
                                     display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Distribution of Users by Role',
+                                    font: {
+                                        size: 18
+                                    }
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false
                                 }
                             },
                             scales: {
                                 y: {
-                                    beginAtZero: true
+                                    beginAtZero: true,
+                                    max: 50,
+                                    ticks: {
+                                        stepSize: 5
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Users',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'User Roles',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -66,4 +98,5 @@
                 });
         });
     </script>
+    
 </x-admin-layout>

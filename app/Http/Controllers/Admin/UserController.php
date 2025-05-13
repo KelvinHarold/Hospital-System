@@ -7,7 +7,9 @@ use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailMessages;
 class UserController extends Controller
 {
   public function index(){
@@ -36,23 +38,36 @@ public function create(){
   return view('admin.users.create');
 }
 
-public function store(Request $request){
-  $data = $request->validate([
-    'name' => 'required|string|max:255',
+
+public function store(Request $request)
+{
+    $data = $request->validate([
+        'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|string|confirmed|min:8',
-        'phone'=>'required',
-  ]); 
+        'phone' => 'required',
+    ]);
 
-  User::create([
-    'name'=>$data['name'],
-    'email'=>$data['email'],
-    'password'=>bcrypt($data['password']),
-    'phone'=>$data['phone'],
-  ]);
+    // Generate a random default password
+    $generatedPassword = Str::random(10);
 
-  return redirect()->route('admin.users.index')->with('success', 'User created successfully');
+    // Create user with hashed password
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => bcrypt($generatedPassword),
+        'phone' => $data['phone'],
+    ]);
+
+    // Send welcome email with the plain password
+    Mail::to($user->email)->send(new EmailMessages(
+        $user->name,
+        $user->phone,
+        $generatedPassword // Send unhashed password
+    ));
+
+    return redirect()->route('admin.users.index')->with('added', 'User created successfully');
 }
+
 
 
 public function assignrole(Request $request, User $user){

@@ -15,11 +15,19 @@ class AIChatController extends Controller
     public function ask(Request $request)
     {
         $question = $request->input('question');
-    
-        // Full path to your Python script
-        $scriptPath = base_path('python-scripts/ask_model.py');
-    
-        $process = new Process(['python', $scriptPath, $question]);
+        
+        // Correctly escape the Python script path and the question argument
+        $scriptPath = base_path('python-scripts/medical_qa.py');  // No need to add extra quotes
+        
+        // Escape the question input properly
+        $escapedQuestion = escapeshellarg($question);
+        
+        // Build the process with the script path and question
+        $process = new Process([
+            'python', 
+            $scriptPath, 
+            $escapedQuestion  // Escape the question to handle special characters
+        ]);
     
         try {
             $process->mustRun();
@@ -28,4 +36,7 @@ class AIChatController extends Controller
             return response()->json(['error' => 'Something went wrong: ' . $e->getMessage()]);
         }
     }
+    
+    
+    
 }
